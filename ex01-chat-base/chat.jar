@@ -1,0 +1,48 @@
+function mandaMensagem(event) {
+  event.preventDefault();
+  const text = document.querySelector("#text-message").value;
+  if (text) {
+    const messageContainer = document.querySelector(".messages-list");
+    const messageItem = document.createElement("div");
+    messageItem.classList.add("message-item");
+
+    const messageUser = document.createElement("div");
+    messageUser.classList.add("msg-user", "text-xs");
+    messageUser.innerHTML = "<strong>Você diz:</strong>";
+
+    const messageChat = document.createElement("div");
+    messageChat.classList.add("msg-chat", "border-2", "border-green-500", "rounded", "w-fit", "px-1.5");
+    messageChat.textContent = text;
+
+    messageItem.appendChild(messageUser);
+    messageItem.appendChild(messageChat);
+
+    messageContainer.appendChild(messageItem);
+
+    document.querySelector("#text-message").value = "";
+
+    setTimeout(respondeMensagem, 1000);
+  }
+}
+
+function respondeMensagem() {
+  const messageContainer = document.querySelector(".messages-list");
+  const messageItem = document.createElement("div");
+  messageItem.classList.add("message-item", "flex", "flex-col", "py-0.5", "items-start");
+
+  const messageUser = document.createElement("div");
+  messageUser.classList.add("msg-user", "text-xs");
+  messageUser.textContent = "ChatBot diz:";
+
+  const messageChat = document.createElement("div");
+  messageChat.classList.add("msg-chat", "border-2", "border-blue-500", "rounded", "w-fit", "px-1.5");
+  messageChat.textContent = "Olá! Como posso ajudar?";
+
+  messageItem.appendChild(messageUser);
+  messageItem.appendChild(messageChat);
+
+  messageContainer.appendChild(messageItem);
+}
+
+const form = document.querySelector("#form-chat-send");
+form.addEventListener("submit", mandaMensagem);
